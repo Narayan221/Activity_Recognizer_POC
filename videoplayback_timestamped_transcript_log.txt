@@ -1,0 +1,22 @@
+TIMESTAMPED TRANSCRIPT
+================================================================================
+Timestamp | Text
+--------------------------------------------------------------------------------
+0:00:00 | Tell me about yourself.
+0:00:01 | Hi, I'm Nishita and I'm from Delhi.
+0:00:03 | My height is 5'8 and I really like singing and dancing.
+0:00:05 | I have also won a state-level debate in my school.
+0:00:08 | In this question, the candidate should approach this answer in a structured way.
+0:00:12 | And that structured way is C.
+0:00:14 | S.E.A.T.
+0:00:16 | Where S stands for skills, E for experience or education,
+0:00:20 | A for achievements and T for the type of person you are.
+0:00:23 | If you follow this rule, you will be able to give your introduction in a proper structured way.
+0:00:27 | Let's see one example.
+0:00:28 | Nishita, tell me something about yourself.
+0:00:29 | I'm Nishita from Indian School of Engineering. I am proficient in languages CPP, Python and Java.
+0:00:35 | Apart from this, in databases, I know SQL and NoSQL. In backend, I'm proficient with
+0:00:39 | Spring Boot and in frontend, I know React. I did my internship in ABC company in a full stack role
+0:00:43 | where I revamped their entire website to reduce the latency of 50ms, leading to increase in the
+0:00:48 | traffic up to 80%. I was also the head of coding club at my college. All in all,
+0:00:52 | I am a problem solver at heart, a passionate and adaptable software developer,
