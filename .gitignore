@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+
+# Project specific
+uploads/
+outputs/
+.gemini/
+
+# Large files / Models
+*.pt
+*.pth
+*.onnx
+
+# Test/Temp files
+test_output.txt
+output_test.jpg
+bus.jpg
+*.log
+*.mp4
+*.avi
+*.mov
