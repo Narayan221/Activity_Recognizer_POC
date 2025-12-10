@@ -2,8 +2,87 @@ import cv2
 import time
 import logging
 import numpy as np
+import torch
 from ultralytics import YOLO
 from deepface import DeepFace
+
+# Configure PyTorch to allow Ultralytics model classes for safe loading
+# This is required for PyTorch 2.6+ which defaults to weights_only=True
+try:
+    from ultralytics.nn.tasks import PoseModel, DetectionModel, SegmentationModel, ClassificationModel
+    import torch.nn as nn
+    
+    # Import Ultralytics custom modules - handle version differences gracefully
+    ultralytics_modules = []
+    
+    # Import conv modules individually
+    try:
+        from ultralytics.nn.modules.conv import Conv
+        ultralytics_modules.append(Conv)
+    except ImportError:
+        pass
+    
+    try:
+        from ultralytics.nn.modules.conv import DWConv, GhostConv, RepConv, Concat
+        ultralytics_modules.extend([DWConv, GhostConv, RepConv, Concat])
+    except ImportError:
+        pass
+    
+    # Import block modules individually
+    try:
+        from ultralytics.nn.modules.block import C2f, C3, SPPF, Bottleneck, DFL
+        ultralytics_modules.extend([C2f, C3, SPPF, Bottleneck, DFL])
+    except ImportError:
+        pass
+    
+    try:
+        from ultralytics.nn.modules.block import C2, C3x, C3TR, C3Ghost, SPP, Proto
+        ultralytics_modules.extend([C2, C3x, C3TR, C3Ghost, SPP, Proto])
+    except ImportError:
+        pass
+    
+    try:
+        from ultralytics.nn.modules.block import HGStem, HGBlock, RepC3, C3k2
+        ultralytics_modules.extend([HGStem, HGBlock, RepC3, C3k2])
+    except ImportError:
+        pass
+    
+    # Import head modules individually
+    try:
+        from ultralytics.nn.modules.head import Detect, Pose, Segment, Classify
+        ultralytics_modules.extend([Detect, Pose, Segment, Classify])
+    except ImportError:
+        pass
+    
+    try:
+        from ultralytics.nn.modules.head import OBB, RTDETRDecoder
+        ultralytics_modules.extend([OBB, RTDETRDecoder])
+    except ImportError:
+        pass
+    
+    # Comprehensive list of PyTorch classes commonly used in YOLO models
+    safe_classes = [
+        # Ultralytics model classes
+        PoseModel, DetectionModel, SegmentationModel, ClassificationModel,
+        # PyTorch container modules
+        nn.Sequential, nn.ModuleList, nn.ModuleDict,
+        # Common PyTorch layers
+        nn.Conv2d, nn.BatchNorm2d, nn.ReLU, nn.LeakyReLU, nn.SiLU,
+        nn.MaxPool2d, nn.AdaptiveAvgPool2d, nn.Upsample,
+        nn.Linear, nn.Dropout, nn.Identity,
+        # Base module class
+        nn.Module,
+        # Python builtins needed for unpickling
+        getattr, setattr, type, dict, list, tuple, set, frozenset,
+    ]
+    
+    # Add Ultralytics custom modules
+    safe_classes.extend(ultralytics_modules)
+    
+    torch.serialization.add_safe_globals(safe_classes)
+    logging.info(f"Added {len(safe_classes)} classes to PyTorch safe globals")
+except Exception as e:
+    logging.warning(f"Could not add safe globals: {e}")
 
 class AnalysisService:
     def __init__(self):
