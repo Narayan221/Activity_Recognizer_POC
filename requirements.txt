@@ -7,3 +7,9 @@ deepface
 tf-keras
 numpy
 pydantic
+transformers
+torch
+ffmpeg-python
+librosa
+groq
+python-dotenv
